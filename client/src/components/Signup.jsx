@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
   const [name, setName] = useState("");
@@ -6,22 +7,26 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
 
+  const navigate = useNavigate();
+
   const handleSignup = (e) => {
     e.preventDefault();
 
     if (!name || !email || !password) {
-      setMsg("Please fill all fields");
+      setMsg("⚠️ Please fill all fields");
       return;
     }
 
-    // Dummy signup
     setMsg("✅ Account Created Successfully");
+
+    setTimeout(() => {
+      navigate("/");
+    }, 1500);
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-900 via-purple-900 to-gray-900">
       <div className="bg-white/90 backdrop-blur-lg p-8 rounded-2xl shadow-2xl w-96">
-        {/* Heading */}
         <h2 className="text-3xl font-bold text-center mb-2 text-gray-800">
           Create Account 🚀
         </h2>
@@ -29,76 +34,54 @@ function Signup() {
           Sign up to get started
         </p>
 
-        {/* Form */}
         <form onSubmit={handleSignup} className="flex flex-col gap-4">
-          {/* Name */}
-          <div>
-            <label className="text-sm text-gray-600">Name</label>
-            <input
-              type="text"
-              placeholder="Enter your name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-          </div>
+          <input
+            type="text"
+            placeholder="Enter Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+          />
 
-          {/* Email */}
-          <div>
-            <label className="text-sm text-gray-600">Email</label>
-            <input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-          </div>
+          <input
+            type="email"
+            placeholder="Enter Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+          />
 
-          {/* Password */}
-          <div>
-            <label className="text-sm text-gray-600">Password</label>
-            <input
-              type="password"
-              placeholder="Create password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-          </div>
+          <input
+            type="password"
+            placeholder="Enter Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+          />
 
-          {/* Button */}
-          <button
-            type="submit"
-            className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-3 rounded-lg font-semibold hover:scale-105 transition"
-          >
+          <button className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-3 rounded-lg font-semibold">
             Sign Up
           </button>
         </form>
 
-        {/* Message */}
         {msg && (
-          <p className="text-green-600 text-center mt-4 text-sm font-medium">
+          <p className="text-center mt-4 text-green-600 text-sm font-medium">
             {msg}
           </p>
         )}
 
-        {/* Divider */}
         <div className="flex items-center gap-2 my-5">
           <div className="flex-1 h-[1px] bg-gray-300"></div>
           <span className="text-gray-400 text-sm">OR</span>
           <div className="flex-1 h-[1px] bg-gray-300"></div>
         </div>
 
-        {/* Back to Login */}
-        <button className="w-full border border-indigo-500 text-indigo-600 p-3 rounded-lg font-semibold hover:bg-indigo-50 transition">
+        <button
+          onClick={() => navigate("/")}
+          className="w-full border border-indigo-500 text-indigo-600 p-3 rounded-lg font-semibold"
+        >
           Already have an account? Login
         </button>
-
-        {/* Footer */}
-        <p className="text-center text-gray-500 text-xs mt-6">
-          © 2026 Your App
-        </p>
       </div>
     </div>
   );
